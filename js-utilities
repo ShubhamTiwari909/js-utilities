@@ -9,9 +9,123 @@
   "jsnbversion": "v0.1",
   "cells": [
     {
-      "code": "",
-      "status": "",
-      "output": "",
+      "code": "// 1. Generate a random integer between min and max\nconst randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;\nscrib.show(randomInt(100,100000))",
+      "status": "[1]<br><span style=\"font-size:8px\">0ms<span></span></span>",
+      "output": "92985 <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 2. Get time ago (e.g., \"4 hours ago\")\nconst timeAgo = date => {\n  const diff = (new Date() - new Date(date)) / 1000;\n  const units = [\n    ['year', 31536000], ['month', 2592000],\n    ['day', 86400], ['hour', 3600],\n    ['minute', 60], ['second', 1]\n  ];\n  for (let [unit, sec] of units) {\n    const val = Math.floor(diff / sec);\n    if (val >= 1) return `${val} ${unit}${val > 1 ? 's' : ''} ago`;\n  }\n  return 'just now';\n};\nscrib.show(timeAgo(\"2025/05/12\"))",
+      "status": "[4]<br><span style=\"font-size:8px\">0ms<span></span></span>",
+      "output": "7 days ago <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 3. Format date to YYYY-MM-DD \nconst formatDate = date => new Date(date).toISOString().split('T')[0];\nscrib.show(formatDate(\"2025/05/12\"))",
+      "status": "[8]<br><span style=\"font-size:8px\">0ms<span></span></span>",
+      "output": "2025-05-11 <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 4. Remove duplicates\nconst unique = arr => [...new Set(arr)];\nscrib.show(unique([1,1,2,2,2,3,4,5,5,9]))",
+      "status": "[9]<br><span style=\"font-size:8px\">1ms<span></span></span>",
+      "output": "[\n  1,\n  2,\n  3,\n  4,\n  5,\n  9\n] <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 5. Flatten nested arrays\nconst flatten = arr => arr.flat(Infinity);\nscrib.show(flatten([1,1,[2,2,2],[3,4,[5]],5,9]))",
+      "status": "[11]<br><span style=\"font-size:8px\">1ms<span></span></span>",
+      "output": "[\n  1,\n  1,\n  2,\n  2,\n  2,\n  3,\n  4,\n  5,\n  5,\n  9\n] <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 6. Shuffle array\nconst shuffle = arr => arr.sort(() => Math.random() - 0.5);\nscrib.show(shuffle([1,1,2,2,2,3,4,5,5,9]))",
+      "status": "[14]<br><span style=\"font-size:8px\">1ms<span></span></span>",
+      "output": "[\n  1,\n  2,\n  4,\n  2,\n  9,\n  2,\n  5,\n  1,\n  3,\n  5\n] <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 7. Get the intersection of two arrays\nconst intersect = (a, b) => a.filter(x => b.includes(x));\nscrib.show(intersect([1,2,3,4],[1,3,4,5]))",
+      "status": "[15]<br><span style=\"font-size:8px\">1ms<span></span></span>",
+      "output": "[\n  1,\n  3,\n  4\n] <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 8. Capitalize first letter\nconst capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);\nscrib.show(capitalize(\"mysterio\"))",
+      "status": "[16]<br><span style=\"font-size:8px\">0ms<span></span></span>",
+      "output": "Mysterio <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 9. Slugify a string to create a hyphenated url slug\nconst slugify = str => str.toLowerCase().trim().replace(/\\s+/g, '-').replace(/[^\\w\\-]+/g, '');\nscrib.show(slugify(\"products and services\")) // products-and-services",
+      "status": "[18]<br><span style=\"font-size:8px\">0ms<span></span></span>",
+      "output": "products-and-services <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 10. Truncate a string\nconst truncate = (str, len) => str.length > len ? str.slice(0, len) + '...' : str;\nscrib.show(truncate(\"Web development has many frameworks\", 25))",
+      "status": "[20]<br><span style=\"font-size:8px\">1ms<span></span></span>",
+      "output": "Web development has many ... <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 11. Validating an email\nconst isEmail = str => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(str); // replace regex with your regex\nscrib.show(isEmail(\"mysterio09@gmail.com\"))",
+      "status": "[26]<br><span style=\"font-size:8px\">0ms<span></span></span>",
+      "output": "true <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 12. Check if an object is empty\nconst isEmptyObject = obj => Object.keys(obj).length === 0;\nscrib.show(isEmptyObject({})) // true\nscrib.show(isEmptyObject({ name: \"Mysterio\" })) // false",
+      "status": "[28]<br><span style=\"font-size:8px\">0ms<span></span></span>",
+      "output": "true <br>false <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 13. Get query params from URL\nconst getQueryParams = url => Object.fromEntries(new URL(url).searchParams.entries());\nconst url = \"https://example.com/user?name=mysterio&age=24&country=India\";\nscrib.show(getQueryParams(url)) // { \"name\": \"mysterio\", \"age\": \"24\", \"country\": \"India\" }",
+      "status": "[29]<br><span style=\"font-size:8px\">1ms<span></span></span>",
+      "output": "{\n  \"name\": \"mysterio\",\n  \"age\": \"24\",\n  \"country\": \"India\"\n} <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 14. Serialize object to query string\nconst toQueryString = obj => new URLSearchParams(obj).toString();\nconst person = { \"name\": \"mysterio\", \"age\": \"24\", \"country\": \"India\" }\nscrib.show(`https://example.com/user?${toQueryString(person)}`)",
+      "status": "[32]<br><span style=\"font-size:8px\">1ms<span></span></span>",
+      "output": "https://example.com/user?name=mysterio&amp;age=24&amp;country=India <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 15. Checking for leap year\nconst isLeapYear = year => new Date(year, 1, 29).getDate() === 29;\nscrib.show(isLeapYear(\"2025-05-15\"))",
+      "status": "[35]<br><span style=\"font-size:8px\">1ms<span></span></span>",
+      "output": "false <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 16. Remove Falsy Values\nconst compact = arr => arr.filter(Boolean);\nscrib.show(compact([false, undefined, null, 0, 1, 2, 3]))",
+      "status": "[37]<br><span style=\"font-size:8px\">0ms<span></span></span>",
+      "output": "[\n  1,\n  2,\n  3\n] <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 17. Count Occurrences in Array\nconst countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);\nscrib.show(countOccurrences([1,1,2,2,2,3,4,5,5,9], 2))",
+      "status": "[39]<br><span style=\"font-size:8px\">0ms<span></span></span>",
+      "output": "3 <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 18. Find Duplicates in Array\nconst findDuplicates = arr => {\n  return [...new Set(arr.filter((item, index) => arr.indexOf(item) !== index))];\n};\nscrib.show(findDuplicates([1,1,2,2,2,3,4,5,5,9]))",
+      "status": "[41]<br><span style=\"font-size:8px\">1ms<span></span></span>",
+      "output": "[\n  1,\n  2,\n  5\n] <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 19. Check if Value is Numeric\nconst isNumeric = val => !isNaN(parseFloat(val)) && isFinite(val);\nscrib.show(isNumeric(NaN)) // false\nscrib.show(isNumeric(\"24s\")) // false\nscrib.show(isNumeric(\"24\")) // true\nscrib.show(isNumeric(24)) // true\nscrib.show(isNumeric(24.45)) // true",
+      "status": "[46]<br><span style=\"font-size:8px\">0ms<span></span></span>",
+      "output": "false <br>false <br>true <br>true <br>true <br>",
+      "type": "code"
+    },
+    {
+      "code": "// 20. Pick specific keys from an object\nconst pick = (obj, keys) =>\n  keys.reduce((acc, key) => {\n    if (key in obj) acc[key] = obj[key];\n    return acc;\n  }, {});\nconst person = { \"name\": \"mysterio\", \"age\": \"24\", \"country\": \"India\" }\nscrib.show(pick(person, [\"name\", \"age\"]))",
+      "status": "[47]<br><span style=\"font-size:8px\">0ms<span></span></span>",
+      "output": "{\n  \"name\": \"mysterio\",\n  \"age\": \"24\"\n} <br>",
       "type": "code"
     }
   ],
